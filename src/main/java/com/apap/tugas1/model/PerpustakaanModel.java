@@ -15,7 +15,7 @@ public class PerpustakaanModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @NotNull
     @Size(max = 50)
