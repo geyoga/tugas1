@@ -29,7 +29,7 @@ public class SpesialisasiModel implements Serializable{
     @Column(name = "deskripsi")
     private String deskripsi;
 
-    @ManyToMany(mappedBy = "spesialisasi", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "listSpesialisasi", fetch = FetchType.LAZY)
     private List<PustakawanModel> listPustakawan = new ArrayList<PustakawanModel>();
 
     /**

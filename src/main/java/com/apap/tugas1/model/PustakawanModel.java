@@ -53,6 +53,14 @@ public class PustakawanModel implements Serializable{
                     @JoinColumn(name = "spesialisasi_id", referencedColumnName = "id", nullable = false, updatable = false)})
     private List<SpesialisasiModel> listSpesialisasi = new ArrayList<SpesialisasiModel>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "pustakawan_perpustakaan",
+            joinColumns = {
+                    @JoinColumn(name = "pustakawan_id", referencedColumnName = "id", nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "perpustakaan_id", referencedColumnName = "id", nullable = false, updatable = false)})
+    private List<PerpustakaanModel> listPerpustakaan = new ArrayList<PerpustakaanModel>();
+
     /**
     * param all Set Method
     */
@@ -63,10 +71,10 @@ public class PustakawanModel implements Serializable{
     public void setNama(String nama){
         this.nama = nama;
     }
-    public void  setNip(String nip){
+    public void setNip(String nip){
         this.nip = nip;
     }
-    public void  setTempat_lahir(String tempat_lahir){
+    public void setTempat_lahir(String tempat_lahir){
         this.tempat_lahir = tempat_lahir;
     }
     public void setTanggal_lahir(Date tanggal_lahir){
@@ -77,6 +85,9 @@ public class PustakawanModel implements Serializable{
     }
     public void setListSpesialisasi(List<SpesialisasiModel> listSpesialisasi){
         this.listSpesialisasi = listSpesialisasi;
+    }
+    public void setListPerpustakaan(List<PerpustakaanModel> listPerpustakaan){
+        this.listPerpustakaan = listPerpustakaan;
     }
 
     /**
@@ -104,6 +115,7 @@ public class PustakawanModel implements Serializable{
     public List<SpesialisasiModel> getListSpesialisasi(){
         return listSpesialisasi;
     }
-
-
+    public List<PerpustakaanModel> getListPerpustakaan(){
+        return listPerpustakaan;
+    }
 }
