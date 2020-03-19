@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -33,8 +33,6 @@ public class PustakawanModel implements Serializable{
     @NotNull
     @Size(max = 100)
     @Column(name = "tempat_lahir", nullable = false)
-    @org.hibernate.annotations.ColumnDefault("")
-    // stackoverflow buat table kosong -> percobaan
     private String tempat_lahir;
 
     @NotNull

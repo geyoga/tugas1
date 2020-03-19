@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>SIP - Tambah Pustakawan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: beranda"></nav>
+
+    <div class="container" style="padding: 20px 20px" >
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-md-6">
+                <div class="card border-secondary mb-03">
+                    <div class="card-header">
+                        <h3>Tambah Pustakawan</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/pustakawan/tambah}" th:object="${pustakawan}" method="POST">
+                            Nama: <br>
+                            <input type="text" name="nama" class="form-control"/>
+                            <br>
+                            <div class="form-row">
+                                <div class="col">
+                                    Tempat Lahir: <br>
+                                    <input type="text" name="tempat_lahir" class="form-control"/>
+                                </div>
+                                <br>
+                                <div class="col">
+                                    Tanggal Lahir: <br>
+                                    <input type="date" name="tanggal_lahir" class="form-control"/>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="jenis_kelamin">Jenis Kelamin:</label>
+                                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                    <option th:value="1">Laki-Laki</option>
+                                    <option th:value="2">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="spesialisasi">Spesialisasi:</label>
+                                <select class="form-control" id="spesialisasi">
+                                    <option>-</option>
+                                    <option>Archival Studies</option>
+                                    <option>Information Architecture</option>
+                                    <option>Public Librarianship</option>
+                                    <option>Academic Librarianship</option>
+                                </select>
+                            </div>
+                            <br>
+                            <!--
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Spesialisasi :</th>
+                                    <th><button type="submit", name="addRow" class="btn btn-primary">✚</button></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="spesialisasi, iterationStatus : *{listSpesialisasi}">
+                                        <td>
+                                            <input type="text" th:field="*{listSpesialisasi[__${iterationStatus.index}__].nama}">
+                                        </td>
+                                        <td>
+                                            <button type="submit" name="removeRow" th:value="${iterationStatus.index}"
+                                                    class="btn btn-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            -->
+                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</body>
+
+</html>
