@@ -5,14 +5,17 @@ package com.apap.tugas1.controller;
  */
 
 import com.apap.tugas1.model.PustakawanModel;
-import com.apap.tugas1.service.pustakawan.PustakawanService;
 import com.apap.tugas1.model.SpesialisasiModel;
+import com.apap.tugas1.service.PustakawanService;
+import com.apap.tugas1.service.SpesialisasiService;
+import com.apap.tugas1.service.SpesialisasiServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,33 +31,47 @@ public class PustakawanController{
     PustakawanService pustakawanService;
 
     @Autowired
+    SpesialisasiService spesialisasiService;
 
-    @RequestMapping("/")
-    private String home(Model model){
-        
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private String home(Model model) {
+        List<PustakawanModel> listPustakawan = pustakawanService.getAllPustakawan();
+        model.addAttribute("listPustakawan", listPustakawan);
         return "home";
     }
 
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.GET)
     private String addPustakawan(Model model){
+
+        List<SpesialisasiModel> list = spesialisasiService.getAllSpesialisasi();
         model.addAttribute("pustakawan", new PustakawanModel());
+        model.addAttribute("listSpesialisasi", list);
+
         return "add-pustakawan";
     }
 
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.POST)
-    private String addPustakawanSubmit (@ModelAttribute PustakawanModel pustakawan){
+    private String addPustakawanSubmit (@ModelAttribute PustakawanModel pustakawan,
+                                        @ModelAttribute SpesialisasiModel spesialisasi){
+        List<SpesialisasiModel> list = new ArrayList<SpesialisasiModel>();
         String nip = getNipGenerator(pustakawan);
 
-        if(checkSameNip(nip)){
-            nip = getNipGenerator(pustakawan);
-        }
-
         pustakawan.setNip(nip);
+        spesialisasi.setDeskripsi("");
+        spesialisasi.setNama("School Librarianship");
+
+        list.add(spesialisasi);
+        pustakawan.setListSpesialisasi(list);
+
+        spesialisasiService.addSpesialisasi(spesialisasi);
         pustakawanService.addPustakawan(pustakawan);
+
+        System.out.println(spesialisasi.getId());
         return "add-submit";
     }
 
-    List<String> nipStore = new ArrayList<String>();
+
 
     private String getNipGenerator(PustakawanModel pustakawan){
 
@@ -71,21 +88,10 @@ public class PustakawanController{
         char secondChar = (char) (rnd.nextInt(26) + 'A');
 
         String result = year+date+gender+firstChar+secondChar;
-        nipStore.add(result);
 
         return result;
     }
 
-    private Boolean checkSameNip(String nip){
-
-        for (int counter = 0; counter < nipStore.size(); counter++) {
-
-            if (nip == nipStore.get(counter)){
-                    return true;
-            }
-        }
-        return false;
-    }
 }
 
 

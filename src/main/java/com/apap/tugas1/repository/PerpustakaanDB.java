@@ -1,15 +1,12 @@
 package com.apap.tugas1.repository;
 
-/**
- * Perpustakaan Db
- */
 
 import com.apap.tugas1.model.PerpustakaanModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PerpustakaanDb extends JpaRepository<PerpustakaanModel, Long>{
+public interface PerpustakaanDB extends JpaRepository<PerpustakaanModel, Long>{
 
-    void deleteById(long id);
+    PerpustakaanModel findById(long id);
 }

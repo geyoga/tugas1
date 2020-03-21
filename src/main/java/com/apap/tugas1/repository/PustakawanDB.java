@@ -12,9 +12,13 @@ import java.util.Optional;
 
 
 @Repository
-public interface PustakawanDb extends JpaRepository<PustakawanModel, Long>{
+public interface PustakawanDB extends JpaRepository<PustakawanModel, Long>{
 
     void deleteById(long id);
+
+    PustakawanModel findById(long id);
+
+    PustakawanModel findByNip(String nip);
 
 
 }
