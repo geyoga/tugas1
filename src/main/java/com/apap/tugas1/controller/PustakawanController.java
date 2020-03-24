@@ -65,7 +65,6 @@ public class PustakawanController{
         PustakawanModel pustakawan = pustakawanService.getPustakawanById(pustakawanId);
         model.addAttribute("title", pustakawan.getNama());
         model.addAttribute("listSpesialisasi", pustakawan.getListSpesialisasi());
-        System.out.println(pustakawan.getListSpesialisasi());
         model.addAttribute("pustakawanId", pustakawan.getId());
 
         return "view-SpesialisasiPustakawan";
@@ -105,6 +104,46 @@ public class PustakawanController{
         }
 
         return "redirect:/pustakawan/tambah/view/" + form.getPustakawanId();
+    }
+
+    @RequestMapping(value = "/pustakawan/tambah/berhasil", method = RequestMethod.GET)
+    private String showSuccess(){
+        return "add-submit";
+    }
+
+    @RequestMapping(value = "/pustakawan", method = RequestMethod.GET)
+    private String viewPustakawan(@RequestParam (value = "nip") String nip, Model model){
+        PustakawanModel pustakawan = pustakawanService.getPustakawanByNip(nip);
+        model.addAttribute("pustakawan",pustakawan);
+        return "view-pustakawan";
+    }
+
+    @RequestMapping(value = "/pustakawan/update/{pustakawanId}", method = RequestMethod.GET)
+    private String updatePustakawan(@PathVariable long pustakawanId, Model model){
+
+        PustakawanModel pustakawan = pustakawanService.getPustakawanById(pustakawanId);
+        model.addAttribute("pustakawan",pustakawan);
+        model.addAttribute("listSpesialisasi", pustakawan.getListSpesialisasi());
+        model.addAttribute("pustakawanId", pustakawan.getId());
+
+        return "update-pustakawan";
+    }
+
+    @RequestMapping(value = "/pustakawan/update/{pustakawanId}", method = RequestMethod.POST)
+    private String updatePustakawan(@PathVariable long pustakawanId, @ModelAttribute PustakawanModel pustakawan,
+                                    Model model){
+        String nip = getNipGenerator(pustakawan);
+        pustakawan.setNip(nip);
+        pustakawanService.addPustakawan(pustakawan);
+        return "redirect:/pustakawan/tambah/view/" + pustakawan.getId();
+    }
+
+    @RequestMapping(value = "/pustakawan/delete/{pustakawanId}", method = RequestMethod.GET)
+    private String deletePustakawan(@PathVariable long pustakawanId, Model model){
+        pustakawanService.deletePustakawan(pustakawanId);
+
+        return "delete-submit";
+
     }
 
 

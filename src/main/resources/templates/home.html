@@ -6,7 +6,7 @@
         <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
     <body>
-        <nav th:replace="fragments/fragment :: beranda"></nav>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
 
         <div class="container-fluid">
             <div class="row">
@@ -34,9 +34,10 @@
             </tr>
             </thead>
             <tbody>
+
                 <tr th:each="pustakawan,iterationStatus : *{listPustakawan}">
                     <td th:text="${iterationStatus.count}"></td>
-                    <td th:text="${pustakawan.nama}"></td>
+                    <td><a th:text="${pustakawan.nama}" th:href="@{'/pustakawan?nip=' + ${pustakawan.nip}}"></a></td>
                     <td th:text="${pustakawan.nip}"></td>
                     <td th:text="${pustakawan.tempat_lahir}"></td>
                     <td th:text="${pustakawan.tanggal_lahir}"></td>
@@ -60,9 +61,11 @@
                             <button type="button" class="btn btn-danger">✕</button>
                         </a>
                     </td>
+
                 </tr>
             </tbody>
         </table>
+        <p th:unless="${listPustakawan.size()}" align="center"><i>Tidak ada Pustakawan</i></p>
     </div>
     </body>
 </html>

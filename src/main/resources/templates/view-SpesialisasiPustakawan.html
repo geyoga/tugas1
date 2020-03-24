@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<nav th:replace="fragments/fragment :: beranda"></nav>
+<nav th:replace="fragments/fragment :: navbar"></nav>
 
 <div class="container" style="padding: 20px 20px" >
     <div class="row">
@@ -28,7 +28,7 @@
                     <br>
                     <p><a class="btn btn-primary float-left" th:href="'/pustakawan/tambah/spesialisasi/'+${pustakawanId}">Tambah Spesialisasi</a>
 
-                    <a class="btn btn-success float-right" th:href="@{/}">Simpan</a></p>
+                    <a class="btn btn-success float-right" th:href="@{/pustakawan/tambah/berhasil}">Simpan</a></p>
 
 
 

@@ -1,59 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>SIP</title>
-        <head th:fragment="css">
-            <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-        </head>
-        <head th:fragment="js">
-            <script th:src="@{/js/bootstrap.min.js}"></script>
-        </head>
+
+<head>
+    <title th:text="SIP"></title>
+
+    <head th:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/global.css}">
     </head>
 
+    <head th:fragment="js">
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+</head>
 
-    <body>
-        <nav th:fragment="beranda" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SIP</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8080/">Beranda</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a href="#" class="navbar-brand" th:text="SIP"></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a href="/" class="nav-link">Beranda</a>
+            </li>
+            <li class="nav-item active">
+                <a th:href="@{/perpustakaan}" class="nav-link">Perpustakaan</a>
+            </li>
+            <li class="nav-item active">
+                <a th:href="@{/statistik}" class="nav-link">Statistik</a>
+            </li>
+            <li class="nav-item active">
+                <a th:href="@{/cari}" class="nav-link">Cari</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
 
-        <nav th:fragment="perpustakaan" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SIP</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8080/">Perpustakaan</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <nav th:fragment="statistik" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SIP</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8080/">Statistik</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <nav th:fragment="cari" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SIP</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8080/">Cari</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </body>
 </html>

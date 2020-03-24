@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>SIP - Update Pustakawan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container" style="padding: 20px 20px" >
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-6">
+            <div class="card border-secondary mb-03">
+                <div class="card-header">
+                    <h3 th:text="'Update Pustakawan untuk ' + ${pustakawan.nama}"></h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/pustakawan/update/{id}(id=${pustakawan.id})}" th:object="${pustakawan}"  method="POST">
+                        <input type="hidden" name="pustakawanId" th:field="*{id}" />
+                        Nama: <br>
+                        <input type="text" name="nama" class="form-control" th:field="*{nama}" />
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                Tempat Lahir: <br>
+                                <input type="text" name="tempat_lahir" class="form-control" th:field="*{tempat_lahir}"/>
+                            </div>
+                            <br>
+                            <div class="col">
+                                Tanggal Lahir: <br>
+                                <input type="date" name="tanggal_lahir" class="form-control" th:field="*{tanggal_lahir}"/>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin:</label>
+                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                <span th:if="*{jenis_kelamin}==1">
+                                    <option value="1">Laki-Laki</option>
+                                    <option value="2">Perempuan</option>
+                                </span>
+                                <span th:if="*{jenis_kelamin}==2">
+                                    <option value="2">Perempuan</option>
+                                    <option value="1">Laki-laki</option>
+                                </span>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right">Lanjut</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+
+</html>

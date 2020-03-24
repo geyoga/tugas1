@@ -19,6 +19,8 @@ public interface PustakawanService {
 
     List<PustakawanModel> getAllPustakawan();
 
+    void deletePustakawan(long id);
+
 }
 
 

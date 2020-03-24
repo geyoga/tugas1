@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Add</title>
+    <title>Delete</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
@@ -16,9 +16,9 @@
         <div class="col-md-6">
             <div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Sukses !</h4>
-                <p>Data yang anda masukan telah berhasil</p>
+                <p>Data yang anda pilih berhasil dihapus</p>
                 <hr>
-                <p class="mb-0">Informasi yang sudah anda masukan dapat dilihat melalui beranda</p>
+                <p class="mb-0">Informasi yang sudah anda hapus akan hilang pada Beranda</p>
             </div>
             <a th:href="@{/}" class="btn btn-secondary float-right" role="button" aria-pressed="true">Kembali</a>
         </div>

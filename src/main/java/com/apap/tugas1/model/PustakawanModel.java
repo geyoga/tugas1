@@ -4,6 +4,9 @@ package com.apap.tugas1.model;
 * Pustakawan Model
 * */
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,15 +46,22 @@ public class PustakawanModel implements Serializable{
     @Column(name = "jenis_kelamin", nullable = false)
     private int jenis_kelamin;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "pustakawan_spesialisasi",
+            joinColumns = {
+                    @JoinColumn(name = "pustakawan_id", referencedColumnName = "id", nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "spesialisasi_id", referencedColumnName = "id", nullable = false, updatable = false)})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<SpesialisasiModel> listSpesialisasi;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "pustakawan_perpustakaan",
             joinColumns = {
                     @JoinColumn(name = "pustakawan_id", referencedColumnName = "id", nullable = false, updatable = false)},
             inverseJoinColumns = {
                     @JoinColumn(name = "perpustakaan_id", referencedColumnName = "id", nullable = false, updatable = false)})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PerpustakaanModel> listPerpustakaan = new ArrayList<PerpustakaanModel>();
 
     /**

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>SIP - View Pustakawan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container" style="padding: 20px 20px" >
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-6">
+            <div class="card border-secondary mb-03">
+                <div class="card-header">
+                    <h3>Detail Pustakawan</h3>
+                </div>
+                <div class="card-body">
+                    <h6>Nama:</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item" th:text="${pustakawan.nama}"></li>
+                    </ul>
+                    <br>
+                    <h6>NIP:</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item" th:text="${pustakawan.nip}"></li>
+                    </ul>
+                    <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <h6>Tempat Lahir:</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item" th:text="${pustakawan.tempat_lahir}"></li>
+                                </ul>
+                            </div>
+                            <br>
+                            <div class="col">
+                                <h6>Tanggal Lahir:</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item" th:text="${pustakawan.tanggal_lahir}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br>
+                        <h6>Jenis Kelamin:</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span th:if="${pustakawan.jenis_kelamin == 1}">Laki-laki</span>
+                                <span th:if="${pustakawan.jenis_kelamin == 2}">Perempuan</span>
+                            </li>
+                        </ul>
+                        <br>
+                        <h6>Spesialisasi:</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span th:if="${pustakawan.listSpesialisasi.size() == 0}">-</span>
+                                <span th:unless="${pustakawan.getListSpesialisasi().size() == 0}" th:each="spesialisasi, iterStat : ${pustakawan.getListSpesialisasi()}"
+                                      th:text="!${iterStat.last} ? ${spesialisasi.getNama()} + ', ' : ${spesialisasi.getNama()}"></span>
+                            </li>
+                        </ul>
+
+                        <br>
+                    <a th:href="@{/}" class="btn btn-secondary float-right" role="button" aria-pressed="true">Kembali</a>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+
+</html>

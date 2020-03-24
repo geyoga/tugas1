@@ -42,5 +42,10 @@ public class PustakawanServiceImpl implements PustakawanService {
         return pustakawanDB.findAll();
     }
 
+    @Override
+    public void deletePustakawan(long id) {
+        pustakawanDB.deleteById(id);
+    }
+
 
 }
