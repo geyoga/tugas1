@@ -20,5 +20,4 @@ public interface PustakawanDB extends JpaRepository<PustakawanModel, Long>{
 
     PustakawanModel findByNip(String nip);
 
-
 }

@@ -6,6 +6,7 @@ package com.apap.tugas1.service;
 
 
 import com.apap.tugas1.model.PustakawanModel;
+import com.apap.tugas1.model.SpesialisasiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class PustakawanServiceImpl implements PustakawanService {
 
     @Override
     public PustakawanModel getPustakawanById(long id) {
-        return pustakawanDB.findById(id);
+        return pustakawanDB.getOne(id);
     }
 
     @Override
@@ -40,5 +41,6 @@ public class PustakawanServiceImpl implements PustakawanService {
     public List<PustakawanModel> getAllPustakawan() {
         return pustakawanDB.findAll();
     }
+
 
 }

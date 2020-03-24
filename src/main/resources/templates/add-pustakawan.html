@@ -21,7 +21,7 @@
                         <h3>Tambah Pustakawan</h3>
                     </div>
                     <div class="card-body">
-                        <form th:action="@{/pustakawan/tambah}" th:object="${pustakawan}"  method="POST">
+                        <form th:action="@{/pustakawan/tambah/}" th:object="${pustakawan}"  method="POST">
                             Nama: <br>
                             <input type="text" name="nama" class="form-control"/>
                             <br>
@@ -44,19 +44,9 @@
                                     <option th:value="2">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Spesialisasi :</label>
-                                <select class="form-control" name="spesialisasi.id">
-                                    <option value="">-</option>
-                                    <option th:each="spesialisasi : ${listSpesialisasi}"
-                                            th:value="${spesialisasi.id}"
-                                            th:utext="${spesialisasi.nama}">
-                                    </option>
-                                </select>
-                            </div>
                             <br>
-
-                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                            <input type="hidden" name="id" th:value="${pustakawan.id}"/>
+                            <button type="submit" class="btn btn-primary float-right">Lanjut</button>
                         </form>
                     </div>
                 </div>

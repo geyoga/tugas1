@@ -29,7 +29,7 @@
                 <th>Tempat Lahir</th>
                 <th>Tanggal Lahir</th>
                 <th>Jenis Kelamin</th>
-                <th>Spesialisasi</th>
+                <th width="500">Spesialisasi</th>
                 <th>Konfigurasi</th>
             </tr>
             </thead>
@@ -44,7 +44,11 @@
                         <span th:if="${pustakawan.jenis_kelamin == 1}">Laki-Laki</span>
                         <span th:if="${pustakawan.jenis_kelamin == 2}">Perempuan</span>
                     </td>
-                    <td th:text="${pustakawan.listSpesialisasi}"></td>
+                    <td>
+                        <span th:if="${pustakawan.getListSpesialisasi().size() == 0}">-</span>
+                        <span th:unless="${pustakawan.getListSpesialisasi().size() == 0}" th:each="spesialisasi, iterStat : ${pustakawan.getListSpesialisasi()}"
+                              th:text="!${iterStat.last} ? ${spesialisasi.getNama()} + ', ' : ${spesialisasi.getNama()}"></span>
+                    </td>
                     <td>
                         <a th:href="@{'/'}">
                             <button type="button" class="btn btn-info">Jadwal</button>

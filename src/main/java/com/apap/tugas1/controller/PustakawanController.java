@@ -8,14 +8,12 @@ import com.apap.tugas1.model.PustakawanModel;
 import com.apap.tugas1.model.SpesialisasiModel;
 import com.apap.tugas1.service.PustakawanService;
 import com.apap.tugas1.service.SpesialisasiService;
+import com.apap.tugas1.model.addSpesialisasiForm;
 import com.apap.tugas1.service.SpesialisasiServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,33 +42,70 @@ public class PustakawanController{
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.GET)
     private String addPustakawan(Model model){
 
-        List<SpesialisasiModel> list = spesialisasiService.getAllSpesialisasi();
-        model.addAttribute("pustakawan", new PustakawanModel());
-        model.addAttribute("listSpesialisasi", list);
+        PustakawanModel newPustakawan = new PustakawanModel();
+        model.addAttribute("pustakawan", newPustakawan);
 
         return "add-pustakawan";
     }
 
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.POST)
-    private String addPustakawanSubmit (@ModelAttribute PustakawanModel pustakawan,
-                                        @ModelAttribute SpesialisasiModel spesialisasi){
-        List<SpesialisasiModel> list = new ArrayList<SpesialisasiModel>();
+    private String addPustakawanSubmit (@ModelAttribute PustakawanModel pustakawan, Model model){
+
         String nip = getNipGenerator(pustakawan);
-
         pustakawan.setNip(nip);
-        spesialisasi.setDeskripsi("");
-        spesialisasi.setNama("School Librarianship");
 
-        list.add(spesialisasi);
-        pustakawan.setListSpesialisasi(list);
-
-        spesialisasiService.addSpesialisasi(spesialisasi);
         pustakawanService.addPustakawan(pustakawan);
 
-        System.out.println(spesialisasi.getId());
-        return "add-submit";
+        return "redirect:/pustakawan/tambah/view/" + pustakawan.getId();
     }
 
+    @RequestMapping(value = "/pustakawan/tambah/view/{pustakawanId}", method = RequestMethod.GET)
+    private String viewTambahPustakawan (Model model, @PathVariable long pustakawanId){
+
+        PustakawanModel pustakawan = pustakawanService.getPustakawanById(pustakawanId);
+        model.addAttribute("title", pustakawan.getNama());
+        model.addAttribute("listSpesialisasi", pustakawan.getListSpesialisasi());
+        System.out.println(pustakawan.getListSpesialisasi());
+        model.addAttribute("pustakawanId", pustakawan.getId());
+
+        return "view-SpesialisasiPustakawan";
+    }
+    @RequestMapping(value = "/pustakawan/tambah/spesialisasi/{pustakawanId}", method = RequestMethod.GET)
+    private String addSpesialisasi(Model model, @PathVariable long pustakawanId){
+
+        PustakawanModel pustakawan = pustakawanService.getPustakawanById(pustakawanId);
+
+        addSpesialisasiForm form = new addSpesialisasiForm(spesialisasiService.getAllSpesialisasi(), pustakawan);
+        form.setPustakawan(pustakawan);
+
+        model.addAttribute("title", "Tambah Spesialisasi untuk " + pustakawan.getNama());
+        model.addAttribute("form", form);
+        return "add-spesialisasi";
+    }
+    @RequestMapping(value = "/pustakawan/tambah/spesialisasi", method = RequestMethod.POST)
+    private String addSpesialisasi(Model model, @ModelAttribute addSpesialisasiForm form){
+
+        List<SpesialisasiModel> currentList;
+        Boolean condition = false;
+
+        SpesialisasiModel spesialisasi = spesialisasiService.getSpesialisasiById(form.getSpesialisasiId());
+        PustakawanModel pustakawan = pustakawanService.getPustakawanById(form.getPustakawanId());
+
+        currentList = pustakawan.getListSpesialisasi();
+        for (int i=0; i<currentList.size(); i++){
+            if (spesialisasi.getId()==currentList.get(i).getId()){
+                condition = true;
+            }
+        }
+
+        if (condition == false){
+            pustakawan.addSpesialisasi(spesialisasi);
+            pustakawan.setListSpesialisasi(pustakawan.getListSpesialisasi());
+            pustakawanService.addPustakawan(pustakawan);
+        }
+
+        return "redirect:/pustakawan/tambah/view/" + form.getPustakawanId();
+    }
 
 
     private String getNipGenerator(PustakawanModel pustakawan){

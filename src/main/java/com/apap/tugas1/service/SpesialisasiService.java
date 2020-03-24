@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface SpesialisasiService {
 
-
     SpesialisasiModel getSpesialisasiById (long id);
 
     void addSpesialisasi (SpesialisasiModel spesialisasi);

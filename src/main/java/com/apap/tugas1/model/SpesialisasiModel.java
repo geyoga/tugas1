@@ -29,8 +29,8 @@ public class SpesialisasiModel implements Serializable{
     @Column(name = "deskripsi")
     private String deskripsi;
 
-    @ManyToMany(mappedBy = "listSpesialisasi", fetch = FetchType.LAZY)
-    private List<PustakawanModel> listPustakawan = new ArrayList<PustakawanModel>();
+    @ManyToMany(mappedBy = "listSpesialisasi")
+    private List<PustakawanModel> listPustakawan;
 
     /**
      * param set all method

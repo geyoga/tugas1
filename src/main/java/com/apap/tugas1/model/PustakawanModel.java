@@ -43,13 +43,8 @@ public class PustakawanModel implements Serializable{
     @Column(name = "jenis_kelamin", nullable = false)
     private int jenis_kelamin;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "pustakawan_spesialisasi",
-            joinColumns = {
-                    @JoinColumn(name = "pustakawan_id", referencedColumnName = "id", nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "spesialisasi_id", referencedColumnName = "id", nullable = false, updatable = false)})
-    private List<SpesialisasiModel> listSpesialisasi = new ArrayList<SpesialisasiModel>();
+    @ManyToMany
+    private List<SpesialisasiModel> listSpesialisasi;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "pustakawan_perpustakaan",
@@ -86,6 +81,9 @@ public class PustakawanModel implements Serializable{
     }
     public void setListPerpustakaan(List<PerpustakaanModel> listPerpustakaan){
         this.listPerpustakaan = listPerpustakaan;
+    }
+    public void addSpesialisasi(SpesialisasiModel spesialisasi){
+        listSpesialisasi.add(spesialisasi);
     }
 
     /**

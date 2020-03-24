@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,47 +24,45 @@ public class SpesialisasiServiceImpl implements SpesialisasiService {
     @Autowired
     private SpesialisasiDB spesialisasiDB;
 
-    private static final List<SpesialisasiModel> daftarSpesialisasi = new ArrayList<SpesialisasiModel>();
+    /*
+    * @PostConstruct
+    public void loadData() {
+        SpesialisasiModel sp1 = new SpesialisasiModel();
+        sp1.setNama("Archival Studies");
+        sp1.setId(1);
+        sp1.setDeskripsi("Studi Arsip");
+        spesialisasiDB.save(sp1);
 
-    static {
-        initData();
+        SpesialisasiModel sp2 = new SpesialisasiModel();
+        sp2.setNama("Information Architecture");
+        sp2.setId(2);
+        sp2.setDeskripsi("Arsitektur Informasi");
+        spesialisasiDB.save(sp2);
+
+        SpesialisasiModel sp3 = new SpesialisasiModel();
+        sp3.setNama("Public Librarianship");
+        sp3.setId(3);
+        sp3.setDeskripsi("Kepustakawanan Publik");
+        spesialisasiDB.save(sp3);
+
+        SpesialisasiModel sp4 = new SpesialisasiModel();
+        sp4.setNama("Academic Librarianship");
+        sp4.setId(4);
+        sp4.setDeskripsi("Kepustakawanan Akademik");
+        spesialisasiDB.save(sp4);
+
+        SpesialisasiModel sp5 = new SpesialisasiModel();
+        sp5.setNama("School Librarianship");
+        sp5.setId(5);
+        sp5.setDeskripsi("Kepustakawanan Sekolah");
+        spesialisasiDB.save(sp5);
     }
 
-    private static void initData(){
-        SpesialisasiModel as = new SpesialisasiModel();
-        as.setId(1);
-        as.setNama("Archival Studies");
+    @PreDestroy
+    public void removeData() {
+        spesialisasiDB.deleteAll();
+    }*/
 
-
-        SpesialisasiModel ia = new SpesialisasiModel();
-        ia.setNama("Information Architecture");
-        ia.setId(2);
-
-
-        SpesialisasiModel pl = new SpesialisasiModel();
-        pl.setNama("Public Librarianship");
-        pl.setId(3);
-
-
-        SpesialisasiModel al = new SpesialisasiModel();
-        al.setNama("Academic Librarianship");
-        al.setId(4);
-
-
-        SpesialisasiModel sl = new SpesialisasiModel();
-        sl.setNama("School Librarianship");
-        sl.setId(5);
-
-
-        daftarSpesialisasi.add(as);
-        daftarSpesialisasi.add(ia);
-        daftarSpesialisasi.add(pl);
-        daftarSpesialisasi.add(al);
-        daftarSpesialisasi.add(sl);
-
-
-
-    }
 
     @Override
     public SpesialisasiModel getSpesialisasiById(long id) {
@@ -76,7 +76,7 @@ public class SpesialisasiServiceImpl implements SpesialisasiService {
 
     @Override
     public List<SpesialisasiModel> getAllSpesialisasi() {
-        return daftarSpesialisasi;
+        return spesialisasiDB.findAll();
     }
 
 }

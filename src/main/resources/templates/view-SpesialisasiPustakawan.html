@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>SIP - Tambah Pustakawan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: beranda"></nav>
+
+<div class="container" style="padding: 20px 20px" >
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-6">
+            <div class="card border-secondary mb-03">
+                <div class="card-header">
+                    <h3 th:text="'Spesialisasi untuk ' + ${title}"></h3>
+                </div>
+                <div class="card-body">
+
+                    <li th:each="spesialisasi : ${listSpesialisasi}" th:text="${spesialisasi.nama}"></li>
+
+                    <p th:unless="${listSpesialisasi.size()}"><i>Tidak ada Spesialisasi</i></p>
+                    <br>
+                    <p><a class="btn btn-primary float-left" th:href="'/pustakawan/tambah/spesialisasi/'+${pustakawanId}">Tambah Spesialisasi</a>
+
+                    <a class="btn btn-success float-right" th:href="@{/}">Simpan</a></p>
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+</body>
+
+</html>
