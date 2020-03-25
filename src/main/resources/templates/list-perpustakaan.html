@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SIP - Perpustakaan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="padding:20px 20px" >
+            <h2>Daftar Perpustakaan</h2>
+        </div>
+        <div class="col col-lg-2" style="padding:20px 40px">
+            <a class="btn btn-primary" th:href="@{/perpustakaan/tambah}" th:method="GET">✚ Perpustakaan</a>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive" style="padding: 0 20px">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Nama</th>
+            <th>Lokasi</th>
+            <th>Konfigurasi</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="perpustakaan ,iterationStatus : *{listPerpustakaan}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${perpustakaan.nama}"></td>
+            <td th:text="${perpustakaan.lokasi}"></td>
+            <td>
+                <a th:href="@{'/perpustakaan/delete/' + ${perpustakaan.id}}">
+                    <button type="button" class="btn btn-danger">✕</button>
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <p th:unless="${listPerpustakaan.size()}" align="center"><i>Tidak ada Perpustakaan</i></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>SIP - Tambah Perpustakaan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container" style="padding: 20px 20px" >
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-6">
+            <div class="card border-secondary mb-03">
+                <div class="card-header">
+                    <h3>Tambah Perpustakaan</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/perpustakaan/tambah/}" th:object="${perpustakaan}"  method="POST">
+                        Nama: <br>
+                        <input type="text" name="nama" class="form-control"/>
+                        <br>
+                        Lokasi: <br>
+                        <input type="text" name="lokasi" class="form-control">
+                        <br>
+
+                        <button type="submit" class="btn btn-success float-right">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+
+</html>

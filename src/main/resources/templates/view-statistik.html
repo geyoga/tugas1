@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SIP - Statistik</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="padding:20px 20px" >
+            <h2>Statistik Spesialisasi</h2>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive" style="padding: 0 20px">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Spesialisasi</th>
+            <th>Jumlah</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>1</td>
+            <td th:text="${listSpesialisasi.nama}"></td>
+        </tr>
+
+        </tr>
+        </tbody>
+    </table>
+    <p th:unless="${listSpesialisasi.size()}" align="center"><i>Tidak ada Spesialisasi</i></p>
+</div>
+</body>
+</html>

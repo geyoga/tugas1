@@ -12,4 +12,10 @@ public interface PerpustakaanService {
 
     PerpustakaanModel getPerpustakaanById (long id);
 
+    List<PerpustakaanModel> getAllPerpustakaan();
+
+    void addPerpustakaan(PerpustakaanModel perpustakaan);
+
+    void deletePerpustakaan(long id);
+
 }

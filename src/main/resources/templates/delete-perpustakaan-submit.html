@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Delete</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container" style="padding: 20px 20px">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-6">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Sukses !</h4>
+                <p>Data yang anda pilih berhasil dihapus</p>
+                <hr>
+                <p class="mb-0">Informasi yang sudah anda hapus akan hilang pada Perpustakaan</p>
+            </div>
+            <a th:href="@{/perpustakaan}" class="btn btn-secondary float-right" role="button" aria-pressed="true">Kembali</a>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

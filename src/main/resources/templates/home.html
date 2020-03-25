@@ -51,7 +51,7 @@
                               th:text="!${iterStat.last} ? ${spesialisasi.getNama()} + ', ' : ${spesialisasi.getNama()}"></span>
                     </td>
                     <td>
-                        <a th:href="@{'/'}">
+                        <a th:href="@{'/jadwal/tambah/' + ${pustakawan.nip}}">
                             <button type="button" class="btn btn-info">Jadwal</button>
                         </a>
                         <a th:href="@{'/pustakawan/update/' + ${pustakawan.id}}">

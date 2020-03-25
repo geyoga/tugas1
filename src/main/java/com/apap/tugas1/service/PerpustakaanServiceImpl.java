@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PerpustakaanServiceImpl implements PerpustakaanService{
@@ -21,5 +23,20 @@ public class PerpustakaanServiceImpl implements PerpustakaanService{
     @Override
     public PerpustakaanModel getPerpustakaanById(long id) {
         return perpustakaanDB.findById(id);
+    }
+
+    @Override
+    public List<PerpustakaanModel> getAllPerpustakaan() {
+        return perpustakaanDB.findAll();
+    }
+
+    @Override
+    public void addPerpustakaan(PerpustakaanModel perpustakaan) {
+        perpustakaanDB.save(perpustakaan);
+    }
+
+    @Override
+    public void deletePerpustakaan(long id) {
+        perpustakaanDB.deleteById(id);
     }
 }

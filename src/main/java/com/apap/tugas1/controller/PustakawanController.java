@@ -108,7 +108,7 @@ public class PustakawanController{
 
     @RequestMapping(value = "/pustakawan/tambah/berhasil", method = RequestMethod.GET)
     private String showSuccess(){
-        return "add-submit";
+        return "add-pustakawan-submit";
     }
 
     @RequestMapping(value = "/pustakawan", method = RequestMethod.GET)
@@ -142,7 +142,7 @@ public class PustakawanController{
     private String deletePustakawan(@PathVariable long pustakawanId, Model model){
         pustakawanService.deletePustakawan(pustakawanId);
 
-        return "delete-submit";
+        return "delete-pustakawan-submit";
 
     }
 
