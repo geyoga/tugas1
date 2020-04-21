@@ -22,20 +22,22 @@
         <tr>
             <th>No.</th>
             <th>Spesialisasi</th>
-            <th>Jumlah</th>
+            <th>Jumlah Pustakawan</th>
         </tr>
         </thead>
         <tbody>
-
-        <tr>
-            <td>1</td>
-            <td th:text="${listSpesialisasi.nama}"></td>
-        </tr>
-
+        <tr th:each="spesialisasi, iteraStat : ${listSpesialisasi}">
+            <td th:text="${iteraStat.count}"></td>
+            <td th:text="${spesialisasi.nama}"></td>
+            <td>
+                <p th:each="jumlah :${spesialisasi.listPustakawan.size()}">
+                    <span th:text="${jumlah}">jumlah</span>
+                </p>
+            </td>
         </tr>
         </tbody>
     </table>
-    <p th:unless="${listSpesialisasi.size()}" align="center"><i>Tidak ada Spesialisasi</i></p>
+
 </div>
 </body>
 </html>

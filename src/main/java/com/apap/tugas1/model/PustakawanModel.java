@@ -13,7 +13,9 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pustakawan")
@@ -62,7 +64,7 @@ public class PustakawanModel implements Serializable{
             inverseJoinColumns = {
                     @JoinColumn(name = "perpustakaan_id", referencedColumnName = "id", nullable = false, updatable = false)})
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<PerpustakaanModel> listPerpustakaan = new ArrayList<PerpustakaanModel>();
+    private Set<PerpustakaanModel> listPerpustakaan = new HashSet<>();
 
     /**
     * param all Set Method
@@ -89,11 +91,14 @@ public class PustakawanModel implements Serializable{
     public void setListSpesialisasi(List<SpesialisasiModel> listSpesialisasi){
         this.listSpesialisasi = listSpesialisasi;
     }
-    public void setListPerpustakaan(List<PerpustakaanModel> listPerpustakaan){
+    public void setListPerpustakaan(Set<PerpustakaanModel> listPerpustakaan){
         this.listPerpustakaan = listPerpustakaan;
     }
     public void addSpesialisasi(SpesialisasiModel spesialisasi){
         listSpesialisasi.add(spesialisasi);
+    }
+    public void addPerpustakaan(PerpustakaanModel perpustakaan){
+        listPerpustakaan.add(perpustakaan);
     }
 
     /**
@@ -121,7 +126,7 @@ public class PustakawanModel implements Serializable{
     public List<SpesialisasiModel> getListSpesialisasi(){
         return listSpesialisasi;
     }
-    public List<PerpustakaanModel> getListPerpustakaan(){
+    public Set<PerpustakaanModel> getListPerpustakaan(){
         return listPerpustakaan;
     }
 }
