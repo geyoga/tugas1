@@ -4,11 +4,10 @@ package com.apap.tugas1.controller;
  * Pustakawan Controller
  */
 
-import com.apap.tugas1.model.PustakawanModel;
-import com.apap.tugas1.model.SpesialisasiModel;
+import com.apap.tugas1.model.*;
+import com.apap.tugas1.service.PerpustakaanService;
 import com.apap.tugas1.service.PustakawanService;
 import com.apap.tugas1.service.SpesialisasiService;
-import com.apap.tugas1.model.addSpesialisasiForm;
 import com.apap.tugas1.service.SpesialisasiServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class PustakawanController{
@@ -30,6 +26,9 @@ public class PustakawanController{
 
     @Autowired
     SpesialisasiService spesialisasiService;
+
+    @Autowired
+    PerpustakaanService perpustakaanService;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -144,6 +143,48 @@ public class PustakawanController{
 
         return "delete-pustakawan-submit";
 
+    }
+
+    @RequestMapping(value = "/jadwal/tambah/{nip}", method = RequestMethod.GET)
+    private String addJadwal(@PathVariable String nip, @ModelAttribute JadwalModel jadwal, Model model){
+
+        JadwalModel newJadwal = new JadwalModel();
+        List<PerpustakaanModel> listPerpustakaan = perpustakaanService.getAllPerpustakaan();
+        PustakawanModel pustakawan = pustakawanService.getPustakawanByNip(nip);
+
+        jadwal.setPustakawan(pustakawan);
+
+        model.addAttribute("pustakawan", pustakawan);
+        model.addAttribute("listPerpustakaan", listPerpustakaan);
+        model.addAttribute("newJadwal",newJadwal);
+        model.addAttribute("pustakawanId", pustakawan.getId());
+        model.addAttribute("filteredPerpus",pustakawan.getListPerpustakaan());
+
+        return "add-jadwal";
+    }
+
+    @RequestMapping(value = "/jadwal/tambah/{nip}", method = RequestMethod.POST)
+    private String addJadwal(@PathVariable String nip,
+                             @ModelAttribute JadwalModel jadwal,
+                             @RequestParam(value = "perpustakaan", required = true) PerpustakaanModel perpustakaan,
+                             @RequestParam(value = "hari") String hari,
+                             @RequestParam(value = "pustakawan", required = true) PustakawanModel pustakawan,
+                             Model model){
+        jadwal.setPustakawan(pustakawanService.getPustakawanByNip(nip));
+        jadwal.setPerpustakaan(perpustakaanService.getPerpustakaanById(perpustakaan.getId()));
+        jadwal.setHari(hari);
+        pustakawan.addPerpustakaan(jadwal.getPerpustakaan());
+        pustakawanService.addPustakawan(pustakawan);
+        return "add-pustakawan-submit";
+    }
+
+    @RequestMapping(value = "/cari", method = RequestMethod.GET)
+    private String cari(Model model) {
+        List<SpesialisasiModel> listSpesialisasi = spesialisasiService.getAllSpesialisasi();
+        List<PustakawanModel> listPustakawan = pustakawanService.getAllPustakawan();
+        model.addAttribute("listSpesialisasi", listSpesialisasi);
+        model.addAttribute("pustakawan_list", listPustakawan);
+        return "cari-pustakawan";
     }
 
 

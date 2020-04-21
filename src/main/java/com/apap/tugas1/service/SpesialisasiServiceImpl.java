@@ -24,8 +24,8 @@ public class SpesialisasiServiceImpl implements SpesialisasiService {
     @Autowired
     private SpesialisasiDB spesialisasiDB;
 
-    /*
-    * @PostConstruct
+
+    @PostConstruct
     public void loadData() {
         SpesialisasiModel sp1 = new SpesialisasiModel();
         sp1.setNama("Archival Studies");
@@ -61,7 +61,7 @@ public class SpesialisasiServiceImpl implements SpesialisasiService {
     @PreDestroy
     public void removeData() {
         spesialisasiDB.deleteAll();
-    }*/
+    }
 
 
     @Override
